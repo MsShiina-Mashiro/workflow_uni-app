@@ -56,7 +56,7 @@
 			</u-mask>
 		</view>
 		<view class="u-page" v-else-if="current===2">
-			管理审批
+			<u-subsection :list="subSectionList" :current="sectionCurrent" @change="changeCurrent" :active-color="sectionCurrent===0?'#2979ff':sectionCurrent===1?'#19be6b':'#fa3534'"></u-subsection>
 		</view>
 		<view class="u-page" v-else></view>
 		<!-- 与包裹页面所有内容的元素u-page同级，且在它的下方 -->
@@ -139,7 +139,13 @@
 						label: '报销'
 					}
 				],
-				errorType: ['message']
+				errorType: ['message'],
+				subSectionList: [
+					{name: '待审批'},
+					{name: '已通过'},
+					{name: '已拒绝'}
+				],
+				sectionCurrent: 0
 			}
 		},
 		computed: {
@@ -209,6 +215,10 @@
 			changeInfo(e){
 				//console.log(e)
 				this.$store.commit('changeAddListInfo', e)
+			},
+			changeCurrent(index) {
+				this.sectionCurrent = index
+				// console.log(this.sectionCurrent)
 			}
 		}
 	}

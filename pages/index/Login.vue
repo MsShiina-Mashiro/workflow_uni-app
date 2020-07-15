@@ -35,8 +35,8 @@
 			return {
 				// 这是登录表单的绑定对象
 				loginForm: {
-					username: 'admin',
-					password: '123456'
+					username: '',   // admin
+					password: ''		// 123456
 				},
 				// 这是登录表单的校验规则
 				loginFormRules: {
