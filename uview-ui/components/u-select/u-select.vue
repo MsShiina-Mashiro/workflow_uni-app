@@ -380,6 +380,7 @@ export default {
 		justify-content: space-between;
 		height: 80rpx;
 		padding: 0 40rpx;
+		margin: 0 30rpx 0 30rpx;
 	}
 
 	&__body {
