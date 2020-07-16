@@ -16,4 +16,7 @@
 	// 引入uView 必须保持在首行
 	@import 'uview-ui/index.scss';
 	/*每个页面公共css */
+	.u-scroll-bar {
+			 display: none;
+	}
 </style>

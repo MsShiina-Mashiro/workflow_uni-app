@@ -6,7 +6,7 @@ const store = new Vuex.Store({
 		flowList: [{
 				id: 0,
 				title: '请假',
-				status: '审批中',
+				status: '待审批',
 				info: '请假理由请假理由请假理由请假理由请假理由请假理由请假理由'
 			},
 			{
@@ -24,7 +24,7 @@ const store = new Vuex.Store({
 			{
 				id: 3,
 				title: '请假',
-				status: '审批中',
+				status: '待审批',
 				info: '请假理由请假理由请假理由请假理由请假理由请假理由请假理由'
 			},
 			{
@@ -43,17 +43,57 @@ const store = new Vuex.Store({
 		addList:{
 			id: 0,
 			title: '',
-			status: '审核中',
+			status: '待审批',
 			info: ''
 		},
-		nextId: 6
+		nextId: 6,
+		approveList: [
+			// 未审批
+			[
+				{
+					id: 0,
+					title: '报销',
+					status: '待审批',
+					info: '报销理由报销理由报销理由报销理由报销理由报销理由报销理由报销理由报销理由报销理由报销理由报销理由报销理由报销理由报销理由报销理由报销理由报销理由'
+				},
+				{
+					id: 1,
+					title: '报销',
+					status: '待审批',
+					info: '报销理由报销理由报销理由报销理由报销理由报销理由报销理由报销理由报销理由'
+				},
+				{
+					id: 2,
+					title: '请假',
+					status: '待审批',
+					info: '请假理由请假理由请假理由请假理由请假理由请假理由请假理由'
+				},
+				{
+					id: 3,
+					title: '报销',
+					status: '待审批',
+					info: '报销理由报销理由报销理由'
+				},
+				{
+					id: 4,
+					title: '请假',
+					status: '待审批',
+					info: '请假理由请假理由请假理由请假理由请假理由请假理由请假理由'
+				}
+			],
+			// 已通过
+			[],
+			// 已拒绝
+			[]
+		],
+		approveNextId: 5
 	},
 	mutations: {
 		handleAddList(state) {
 			const obj = {
 				id: 0,
 				title: '',
-				status: '审核中',
+				status: '待审批',
 				info: ''
 			}
 			// state.addList.id = state.nextId
@@ -78,6 +118,28 @@ const store = new Vuex.Store({
 		removeFlowItem(state, id){
 			const index = state.flowList.findIndex(x => x.id === id)
 			state.flowList.splice(index, 1)
+		},
+		handleApproveReject(state, id){
+			const index = state.approveList[0].findIndex(x => x.id === id)
+			const [addList] = state.approveList[0].splice(index, 1)
+			// console.log(addList)
+			state.approveList[2].push(addList)
+			// console.log(state.approveList[2])
+		},
+		handleApproveSuccess(state, id){
+			const index = state.approveList[0].findIndex(x => x.id === id)
+			const [addList] = state.approveList[0].splice(index, 1)
+			// console.log(addList)
+			state.approveList[1].push(addList)
+			// console.log(state.approveList[1])
+		},
+		handleApproveDelete(state, id) {
+			const index = state.approveList[1].findIndex(x => x.id === id)
+			state.approveList[1].splice(index, 1)
+		},
+		handleRejectDelete(state, id) {
+			const index = state.approveList[2].findIndex(x => x.id === id)
+			state.approveList[2].splice(index, 1)
 		}
 	},
 	actions: {},
@@ -87,6 +149,9 @@ const store = new Vuex.Store({
 		},
 		getAddList(state) {
 			return state.addList
+		},
+		getApproveList(state){
+			return state.approveList
 		}
 	}
 })
